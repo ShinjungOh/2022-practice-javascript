@@ -17,21 +17,32 @@
         }
     ]
 
+    const nextData = [
+        ...data,
+        {
+            text: 'js 추가하기'
+        },
+    ];
+
     // 이곳에서 코딩을 시작하세요!
     function TodoList(todo) {
         this.todo = todo;
 
         this.render = function () {
             const result = this.todo.map((el) => `<li>${el.text}</li>`).join('');
-            console.log(result);
+            // console.log(result);
             document.querySelector('#todo-list').innerHTML = result;
+        }
+
+        this.setState = function (nextData) {
+            this.todo = nextData;
+            // console.log('>>>', nextData);
+            this.render();
         }
     }
 
     const todolist = new TodoList(data);
-
-    todolist.render();
-
+    todolist.setState(nextData);
 </script>
 </body>
 </html>
