@@ -28,6 +28,24 @@
     function TodoList(todo) {
         this.todo = todo;
 
+        if (this.todo === null || this.todo === undefined) {
+            throw new Error('null 또는 undefined');
+        }
+
+        if (typeof this.todo !== "object" && !this.todo.hasOwnProperty('text')) {
+            throw new Error('데이터 형식');
+        }
+
+        if (!Array.isArray(this.todo)) {
+            throw new Error('isArray');
+        }
+
+        if (!new.target) {
+            throw new Error('new keyword');
+        }
+
+        todo.map((e) => e.hasOwnProperty('text'))
+
         this.render = function () {
             const result = this.todo.map((el) => `<li>${el.text}</li>`).join('');
             // console.log(result);
@@ -41,7 +59,7 @@
         }
     }
 
-    const todolist = new TodoList(data);
+    const todolist = new TodoList(undefined);
     todolist.setState(nextData);
 </script>
 </body>
