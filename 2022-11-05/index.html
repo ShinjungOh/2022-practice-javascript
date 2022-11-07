@@ -22,33 +22,60 @@
         {
             text: 'js 추가하기'
         },
+        {
+            text: 'js 추가하기2'
+        }
     ];
+
+    const a = 1
 
     // 이곳에서 코딩을 시작하세요!
     function TodoList(todo) {
+        if (!new.target) {
+            throw new Error('new keyword error');
+        }
+
         this.todo = todo;
 
-        if (this.todo === null || this.todo === undefined) {
-            throw new Error('null 또는 undefined');
+        this.isValidation = function () {
+            if (this.todo === null || this.todo === undefined) {
+                return {
+                    error: true,
+                    message: '데이터 값이 null 또는 undefined입니다.'
+                }
+            }
+
+            if (!Array.isArray(this.todo)) {
+                return {
+                    error: true,
+                    message: '배열이 아닙니다.'
+                }
+            }
+
+            if (typeof this.todo !== "object" || !this.todo.every((e) => e.hasOwnProperty('text'))) {
+                return {
+                    error: true,
+                    message: '데이터 형식이 올바르지 않습니다.'
+                }
+            }
+
+            return {
+                error: false
+            }
         }
 
-        if (typeof this.todo !== "object" && !this.todo.hasOwnProperty('text')) {
-            throw new Error('데이터 형식');
-        }
+        const validation = this.isValidation();
 
-        if (!Array.isArray(this.todo)) {
-            throw new Error('isArray');
+        if (validation.error) {
+            throw new Error(this.isValidation().message);
         }
-
-        if (!new.target) {
-            throw new Error('new keyword');
-        }
-
-        todo.map((e) => e.hasOwnProperty('text'))
 
         this.render = function () {
+            if (this.isValidation().error) {
+                throw new Error(this.isValidation().message);
+            }
+
             const result = this.todo.map((el) => `<li>${el.text}</li>`).join('');
-            // console.log(result);
             document.querySelector('#todo-list').innerHTML = result;
         }
 
@@ -59,7 +86,7 @@
         }
     }
 
-    const todolist = new TodoList(undefined);
+    const todolist = new TodoList(null);
     todolist.setState(nextData);
 </script>
 </body>
