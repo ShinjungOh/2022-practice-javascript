@@ -12,38 +12,46 @@
 <script>
     const data = [
         {
-            text: 'JS 공부하기'
+            text: 'JS 공부하기',
+            isCompleted: true
         },
         {
-            text: 'JS 복습하기'
+            text: 'JS 복습하기',
+            isCompleted: true
         }
     ]
 
     const nextData = [
         ...data,
         {
-            text: 'JS 추가하기'
+            text: 'JS 추가하기',
+            isCompleted: false
         },
         {
-            text: 'JS 수정하기'
+            text: 'JS 수정하기',
+            isCompleted: false
         }
     ];
 
     const studyTodo = [
         {
-            text: '다중 컴포넌트'
+            text: '다중 컴포넌트',
+            isCompleted: true
         },
         {
-            text: 'isCompleted 처리'
+            text: 'isCompleted 처리',
+            isCompleted: false
         }
     ];
 
     const lifeTodo = [
         {
-            text: '운동하기'
+            text: '운동하기',
+            isCompleted: false
         },
         {
-            text: '방청소하기'
+            text: '방청소하기',
+            isCompleted: true
         }
     ];
 
@@ -93,7 +101,12 @@
                 throw new Error(this.isValidation().message);
             }
 
-            const result = this.todo.map((el) => `<li>${el.text}</li>`).join('');
+            const result = this.todo.map((el) => {
+                // console.log(`${el.isCompleted}`, typeof `${el.isCompleted}`, Boolean(`${el.isCompleted}`))
+                // console.log(el.isCompleted, typeof el.isCompleted, Boolean(el.isCompleted))
+                return el.isCompleted ? `<li><s>${el.text}</s></li>` : `<li>${el.text}</li>`
+            }).join('');
+
             document.getElementById(id).innerHTML = result;
             // document.querySelector(`#${id}`).innerHTML = result;
         }
@@ -109,8 +122,8 @@
     const todolist3 = new TodoList(lifeTodo, 'todo-list-3');
 
     todolist1.setState(nextData);
-    todolist2.render(studyTodo);
-    todolist3.render(lifeTodo);
+    todolist2.render();
+    todolist3.render();
 </script>
 </body>
 </html>
