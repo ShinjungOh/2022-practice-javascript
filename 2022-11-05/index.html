@@ -6,7 +6,9 @@
 </head>
 
 <body>
-<ul id="todo-list"></ul>
+<ul id="todo-list-1"></ul>
+<ul id="todo-list-2"></ul>
+<ul id="todo-list-3"></ul>
 <script>
     const data = [
         {
@@ -20,17 +22,33 @@
     const nextData = [
         ...data,
         {
-            text: 'js 추가하기'
+            text: 'JS 추가하기'
         },
         {
-            text: 'js 추가하기2'
+            text: 'JS 수정하기'
         }
     ];
 
-    const a = 1
+    const studyTodo = [
+        {
+            text: '다중 컴포넌트'
+        },
+        {
+            text: 'isCompleted 처리'
+        }
+    ];
+
+    const lifeTodo = [
+        {
+            text: '운동하기'
+        },
+        {
+            text: '방청소하기'
+        }
+    ];
 
     // 이곳에서 코딩을 시작하세요!
-    function TodoList(todo) {
+    function TodoList(todo, id) {
         if (!new.target) {
             throw new Error('new keyword error');
         }
@@ -76,18 +94,23 @@
             }
 
             const result = this.todo.map((el) => `<li>${el.text}</li>`).join('');
-            document.querySelector('#todo-list').innerHTML = result;
+            document.getElementById(id).innerHTML = result;
+            // document.querySelector(`#${id}`).innerHTML = result;
         }
 
         this.setState = function (nextData) {
             this.todo = nextData;
-            // console.log('>>>', nextData);
             this.render();
         }
     }
 
-    const todolist = new TodoList(null);
-    todolist.setState(nextData);
+    const todolist1 = new TodoList(data, 'todo-list-1');
+    const todolist2 = new TodoList(studyTodo, 'todo-list-2');
+    const todolist3 = new TodoList(lifeTodo, 'todo-list-3');
+
+    todolist1.setState(nextData);
+    todolist2.render(studyTodo);
+    todolist3.render(lifeTodo);
 </script>
 </body>
 </html>
