@@ -1,4 +1,4 @@
-function TodoInput({targetEl, submit}) {
+function TodoInput({targetEl, onSubmit}) {
     this.render = function () {
         targetEl.innerHTML = `
             <input type="text" placeholder="할 일을 입력하세요."/>
@@ -6,7 +6,7 @@ function TodoInput({targetEl, submit}) {
         `;
 
         const buttonEl = targetEl.querySelector('button');
-        buttonEl.addEventListener('click', submit);
+        buttonEl.addEventListener('click', onSubmit);
     }
 
     this.render();
