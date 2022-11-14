@@ -22,10 +22,16 @@ const submit = (e) => {
     // console.log(inputEl.value);
 }
 
+const onDelete = function(id) {
+    const filterState = todoList.state.filter((_, index) => index !== id);
+    todoList.setState(filterState);
+}
+
 const targetEl = document.querySelector('#todo-list');
 const todoList = new TodoList({
     targetEl,
-    initialState: data
+    initialState: data,
+    onDelete,
 });
 
 const target = document.querySelector('#todo-input');
