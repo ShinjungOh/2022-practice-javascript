@@ -12,12 +12,13 @@ const data = [
 const onSubmit = (e) => {
     const inputEl = e.target.parentNode.querySelector('input');
 
-    data.push({
-        text: inputEl.value,
-        isCompleted: false
-    });
-
-    todoList.setState(data);
+    todoList.setState([
+        ...todoList.state,
+        {
+            text: inputEl.value,
+            isCompleted: false,
+        }
+    ]);
 
     inputEl.value = "";
     inputEl.focus();
