@@ -34,20 +34,22 @@ function TodoList({targetEl, initialState}) {
         console.log(e.target);
         // console.log(e.target.tagName);
         if (e.target.tagName === 'BUTTON') {
-            const dataId = e.target.parentNode.getAttribute('data-id');
+            // const dataId = e.target.parentNode.getAttribute('data-id');
+            const dataId = e.target.parentNode.dataset.id;
+            console.log('>>>> dataId', dataId);
             // console.log('parent >>>>', e.target.parentNode);
             // console.log(dataId);
             this.onDelete(parseInt(dataId, 10));
         }
 
         if (e.target.tagName === 'LI') {
-            const dataId = e.target.getAttribute('data-id');
+            const dataId = e.target.dataset.id;
             // console.log('>>>', dataId);
             this.onToggleIsCompleted(parseInt(dataId, 10));
         }
 
         if (e.target.tagName === 'S') {
-            const dataId = e.target.parentNode.getAttribute('data-id');
+            const dataId = e.target.parentNode.dataset.id;
             // console.log('>>>', dataId);
             this.onToggleIsCompleted(parseInt(dataId, 10));
         }

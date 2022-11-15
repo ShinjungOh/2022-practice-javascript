@@ -9,29 +9,47 @@ const data = [
     },
 ];
 
-const onSubmit = (e) => {
-    const inputEl = e.target.parentNode.querySelector('input');
+// const onSubmit = (e) => {
+//     const inputEl = e.target.parentNode.querySelector('input');
+//
+//     todoList.setState([
+//         ...todoList.state,
+//         {
+//             text: inputEl.value,
+//             isCompleted: false,
+//         }
+//     ]);
+//
+//     inputEl.value = "";
+//     inputEl.focus();
+// }
 
-    todoList.setState([
-        ...todoList.state,
-        {
-            text: inputEl.value,
-            isCompleted: false,
-        }
-    ]);
+// const targetEl = document.querySelector('#todo-list');
+// const todoList = new TodoList({
+//     targetEl,
+//     initialState: data,
+// });
+//
+// const inputTargetEl = document.querySelector('#todo-input');
+// const todoInput = new TodoInput({
+//     targetEl: inputTargetEl,
+//     onSubmit,
+// });
 
-    inputEl.value = "";
-    inputEl.focus();
-}
-
-const targetEl = document.querySelector('#todo-list');
-const todoList = new TodoList({
-    targetEl,
+new App({
+    root: 'root',
+    target: 'todo',
     initialState: data,
 });
 
-const inputTargetEl = document.querySelector('#todo-input');
-const todoInput = new TodoInput({
-    targetEl: inputTargetEl,
-    onSubmit,
+new App({
+    root: 'root2',
+    target: 'todo3shinjung',
+    initialState: data,
 });
+
+
+// const app = new App({
+//     initialState: data,
+//     // target: 'todo',
+// });
