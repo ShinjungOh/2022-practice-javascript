@@ -36,13 +36,13 @@ const data = [
 //     onSubmit,
 // });
 
-new App({
+const app = new App({
     root: 'root',
     target: 'todo',
     initialState: data,
 });
 
-new App({
+const app2 = new App({
     root: 'root2',
     target: 'todo3shinjung',
     initialState: data,

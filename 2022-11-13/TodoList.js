@@ -1,4 +1,4 @@
-function TodoList({targetEl, initialState}) {
+function TodoList({ targetEl, initialState, renderCount }) {
     this.$element = document.createElement('ul');
     targetEl.appendChild(this.$element);
 
@@ -10,6 +10,7 @@ function TodoList({targetEl, initialState}) {
                 ? `<li data-id="${index}"><s>${todo.text}</s> <button>삭제</button></li>`
                 : `<li data-id="${index}">${todo.text} <button>삭제</button></li>`)
             .join('');
+        renderCount(this.state);
     }
 
     this.setState = function (nextState) {
