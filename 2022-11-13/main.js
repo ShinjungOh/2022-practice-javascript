@@ -1,24 +1,15 @@
-const data = [
-    {
-        text: 'JS 공부하기',
-        isCompleted: false,
-    },
-    {
-        text: 'JS 복습하기',
-        isCompleted: true,
-    },
-];
+// const data = JSON.parse(localStorage.getItem('todos')) || [];
 
 // const onSubmit = (e) => {
 //     const inputEl = e.target.parentNode.querySelector('input');
 //
-//     todoList.setState([
-//         ...todoList.state,
-//         {
-//             text: inputEl.value,
-//             isCompleted: false,
-//         }
-//     ]);
+    // todoList.setState([
+    //     ...todoList.state,
+    //     {
+    //         text: inputEl.value,
+    //         isCompleted: false,
+    //     }
+    // ]);
 //
 //     inputEl.value = "";
 //     inputEl.focus();
@@ -39,13 +30,11 @@ const data = [
 const app = new App({
     root: 'root',
     target: 'todo',
-    initialState: data,
 });
 
 const app2 = new App({
     root: 'root2',
     target: 'todo3shinjung',
-    initialState: data,
 });
 
 

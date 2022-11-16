@@ -1,4 +1,5 @@
-function App({ root, target, initialState }) {
+function App({ root, target }) {
+    const initialState = JSON.parse(localStorage.getItem(target)) || [];
 
     this.onSubmit = function(e) {
         const inputEl = e.target.parentNode.querySelector('input');
@@ -37,6 +38,7 @@ function App({ root, target, initialState }) {
 
     const targetEl = document.getElementById(todoListId);
     const todoList = new TodoList({
+        key: target,
         targetEl,
         initialState,
         renderCount: todoCount.render,
@@ -60,6 +62,4 @@ function App({ root, target, initialState }) {
     // }
     //
     // this.count();
-
-
 }
