@@ -46,8 +46,14 @@ function App({ root, target }) {
 
     const inputTargetEl = document.getElementById(todoInputId);
     const todoInput = new TodoInput({
+        key: target,
         targetEl: inputTargetEl,
         onSubmit: this.onSubmit,
+    });
+
+    window.addEventListener(`${target}-removeAll`, function () {
+        localStorage.setItem(target, '');
+        todoList.setState([]);
     });
 
     // this.count = function () {
