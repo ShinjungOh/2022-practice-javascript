@@ -1,5 +1,4 @@
-import {SearchInput} from './SearchInput.js';
-import {SearchResult} from "./SearchResult.js";
+import App from './App.js';
 
 const dummyData = [
     {
@@ -55,38 +54,34 @@ const dummyData = [
     }
 ];
 
-//
 // (function () {
 //     document
 //         .querySelector('#search-keyword')
-//         .addEventListener('keyup', function (e) {
-//             fetch(`https://api.idiots.band/api/search?keyword=${e.target.value}`)
-//                 .then((x) => x.json())
-//                 .then((data) => {
-//                     console.log(JSON.stringify(data, null, 2));
-//                     const htmlString = `${data
-//                         .map(
-//                             (d) =>
-//                                 `<div style="display: inline-block; width: 33%"><img src="${d.poster}" style="object-fit: cover; width: 100%;"></div>`
-//                         )
-//                         .join('')}`;
-//                     document.querySelector('#search-result').innerHTML = htmlString;
-//                 });
-//         });
+//         .addEventListener('keyup',
+//             function (e) {
+//                 fetch(`https://api.idiots.band/api/search?keyword=${e.target.value}`)
+//                     .then((x) => x.json())
+//                     .then((data) => {
+//                         console.log(JSON.stringify(data, null, 2));
+//                         const htmlString = `${data
+//                             .map((d) => `<div style="display: inline-block; width: 33%"><img src="${d.poster}" style="object-fit: cover; width: 100%;"></div>`)
+//                             .join('')}`;
+//                         document.querySelector('#search-result').innerHTML = htmlString;
+//                     });
+//             }
+//         );
 // })();
 
-const searchInput = new SearchInput();
+function debounce(callback, limit = 200) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            callback.apply(this, args);
+        }, limit);
+    }
+}
 
-const searchResult = new SearchResult({
-    // initialState: dummyData,
-    initialState: searchInput.result,
-    $target: '#search-result'
-});
-
-// searchResult.setState(dummyData);
-
-// const searchResult = new SearchResult({
-//     initialState,
-//     $target,
-// });
-
+new App({
+    target: 'app',
+})

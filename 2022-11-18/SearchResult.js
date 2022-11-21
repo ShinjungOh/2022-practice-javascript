@@ -1,4 +1,4 @@
-export function SearchResult ({initialState, $target}) {
+function SearchResult ({initialState, $target}) {
     this.$element = document.createElement('div');
     $target.appendChild(this.$element);
 
@@ -15,9 +15,8 @@ export function SearchResult ({initialState, $target}) {
         this.render();
     }
 
-    console.log(1);
     this.render();
-    console.log(2);
+    console.log('search result');
 }
 
-// export default SearchResult;
+export default SearchResult;

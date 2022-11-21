@@ -1,26 +1,21 @@
-export function SearchInput() {
+function SearchInput({
+    $target,
+    onChangeInput,
+}) {
+    this.$element = document.createElement('div');
+    $target.appendChild(this.$element);
 
-    const render = function () {
-        document
-            .querySelector('#search-keyword')
-            .addEventListener('keyup', function (e) {
-                fetch(`https://api.idiots.band/api/search?keyword=${e.target.value}`)
-                    .then((x) => x.json())
-                    .then((data) => {
-                        console.log(JSON.stringify(data, null, 2));
-                        const htmlString = `${data
-                            .map(
-                                (d) =>
-                                    `<div style="display: inline-block; width: 33%"><img src="${d.poster}" style="object-fit: cover; width: 100%;"></div>`
-                            )
-                            .join('')}`;
-                        document.querySelector('#search-result').innerHTML = htmlString;
-                    });
-            });
-    };
+    this.render = function () {
+        this.$element.innerHTML = `
+            <input type="text" />
+        `
+    }
 
-    const result = render();
-    console.log('search render');
+    this.render();
+    // document.getElementById('search-keyword')
+    this.$element
+        .querySelector('input[type="text"]')
+        .addEventListener('keyup', onChangeInput);
 }
 
-// export default SearchInput;
+export default SearchInput;
