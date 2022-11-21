@@ -1,4 +1,7 @@
-function SearchResult ({initialState, $target}) {
+function SearchResult ({
+    $target,
+    initialState,
+}) {
     this.$element = document.createElement('div');
     $target.appendChild(this.$element);
 
@@ -6,7 +9,7 @@ function SearchResult ({initialState, $target}) {
 
     this.render = function () {
         this.$element.innerHTML = this.state
-            .map((el) => `<div>${el}</div>`)
+            .map((concert) => `<div style="display: inline-block; width: 33%"><img src="${concert.poster}" style="object-fit: cover; width: 100%;"></div>`)
             .join('');
     }
 
@@ -16,7 +19,6 @@ function SearchResult ({initialState, $target}) {
     }
 
     this.render();
-    console.log('search result');
 }
 
 export default SearchResult;
