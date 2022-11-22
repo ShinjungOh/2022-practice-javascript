@@ -68,11 +68,14 @@ export default function App({ target }) {
     }
 
     const fetchConcertList = async (text) => {
-        const url = `https://api.idiots.band/api/search?keyword=${text}`;
         try {
-            // const response = await fetch(url);
-            // const data = await response.json();
-            const data = dummyData.filter((dummy) => dummy.musicians.includes(text));
+            if (text.trim() === '') {
+                return [];
+            }
+            const url = `https://api.idiots.band/api/search?keyword=${text}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            // const data = dummyData.filter((dummy) => dummy.musicians.includes(text));
             return data;
         } catch (e) {
             return [];
@@ -85,7 +88,9 @@ export default function App({ target }) {
             ...this.state,
             text: value,
         });
+
         const response = await fetchConcertList(value);
+        console.log(JSON.stringify(response, null, 2))
         this.setState({
             ...this.state,
             concertList: response,
