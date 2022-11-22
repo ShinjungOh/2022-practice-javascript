@@ -1,6 +1,16 @@
 import SearchInput from "./SearchInput.js";
 import SearchResult from "./SearchResult.js";
 
+function debounce(callback, limit = 200) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            callback.apply(this, args);
+        }, limit);
+    }
+}
+
 const dummyData = [
     {
         "title": "A.O.R CRAZY-FRIDAY",
@@ -83,6 +93,7 @@ export default function App({ target }) {
     }
 
     const onChangeInput = async (e) => {
+        console.log('실행!!');
         const { value } = e.target;
         this.setState({
             ...this.state,
@@ -99,7 +110,7 @@ export default function App({ target }) {
 
     new SearchInput({
         $target: this.$element,
-        onChangeInput,
+        onChangeInput: debounce(onChangeInput, 500),
     })
 
     const searchResult = new SearchResult({
