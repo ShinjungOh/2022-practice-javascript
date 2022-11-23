@@ -21,7 +21,7 @@ function SearchInput({
         .querySelector('input[type="text"]')
         .addEventListener('keyup', (e) => {
             const { value } = e.target;
-            onChangeInput(value);
+            onChangeInput(value, true);
         });
 }
 

@@ -1,5 +1,7 @@
 import SearchInput from "./SearchInput.js";
 import SearchResult from "./SearchResult.js";
+import SearchHistory from "./SearchHistory.js";
+import {getLocalStorage, setLocalStorage} from "./Storage.js";
 
 function debounce(callback, limit = 200) {
     let timeout;
@@ -66,16 +68,19 @@ const dummyData = [
 ];
 
 export default function App({ target }) {
+    this.historyKey = `${target}-history`;
     this.$element = document.getElementById(target);
     this.state = {
         text: '',
         concertList: [],
+        searchHistory: getLocalStorage(this.historyKey) || [],
     }
 
     this.setState = function (nextState) {
         this.state = nextState;
         searchInput.setState(this.state.text);
         searchResult.setState(this.state.concertList);
+        searchHistory.setState(this.state.searchHistory);
     }
 
     const fetchConcertList = async (text) => {
@@ -93,16 +98,32 @@ export default function App({ target }) {
         }
     }
 
-    const onChangeInput = async (value) => {
+    const onChangeInput = async (value, isAddHistory) => {
         console.log('실행!!');
         // const { value } = e.target;
+        // addSearchHistory(value);
         this.setState({
             ...this.state,
             text: value,
         });
 
+        // api 응답 값
         const response = await fetchConcertList(value);
-        console.log(JSON.stringify(response, null, 2))
+        // console.log(JSON.stringify(response, null, 2))
+
+        console.log('>>>> isAddHistory', isAddHistory);
+
+        // 히스토리 계산 값
+        if (isAddHistory) {
+            const searchHistory = addSearchHistory(value);
+            this.setState({
+                ...this.state,
+                concertList: response,
+                searchHistory,
+            })
+            return;
+        }
+
         this.setState({
             ...this.state,
             concertList: response,
@@ -114,9 +135,23 @@ export default function App({ target }) {
     //     await onChangeInput(musicianName)
     // }
 
+    const addSearchHistory = (text) => {
+        const noDuplicateHistory = [...new Set([...this.state.searchHistory, text])];
+        if (noDuplicateHistory.length > 5) {
+            noDuplicateHistory.shift();
+        }
+        setLocalStorage(this.historyKey, noDuplicateHistory);
+        return noDuplicateHistory;
+    }
+
     const searchInput = new SearchInput({
         $target: this.$element,
         onChangeInput: debounce(onChangeInput, 500),
+    })
+
+    const searchHistory = new SearchHistory({
+        $target: this.$element,
+        initialState: this.state.searchHistory,
     })
 
     const searchResult = new SearchResult({
