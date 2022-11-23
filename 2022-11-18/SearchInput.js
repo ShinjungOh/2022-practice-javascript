@@ -11,11 +11,18 @@ function SearchInput({
         `
     }
 
+    this.setState = function (nextState) {
+        this.$element.querySelector('input').value = nextState;
+    }
+
     this.render();
     // document.getElementById('search-keyword')
     this.$element
         .querySelector('input[type="text"]')
-        .addEventListener('keyup', onChangeInput);
+        .addEventListener('keyup', (e) => {
+            const { value } = e.target;
+            onChangeInput(value);
+        });
 }
 
 export default SearchInput;

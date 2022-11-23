@@ -74,6 +74,7 @@ export default function App({ target }) {
 
     this.setState = function (nextState) {
         this.state = nextState;
+        searchInput.setState(this.state.text);
         searchResult.setState(this.state.concertList);
     }
 
@@ -92,9 +93,9 @@ export default function App({ target }) {
         }
     }
 
-    const onChangeInput = async (e) => {
+    const onChangeInput = async (value) => {
         console.log('실행!!');
-        const { value } = e.target;
+        // const { value } = e.target;
         this.setState({
             ...this.state,
             text: value,
@@ -108,7 +109,12 @@ export default function App({ target }) {
         })
     }
 
-    new SearchInput({
+    // const searchMusicianName = async (e) => {
+    //     const musicianName = e.target.textContent;
+    //     await onChangeInput(musicianName)
+    // }
+
+    const searchInput = new SearchInput({
         $target: this.$element,
         onChangeInput: debounce(onChangeInput, 500),
     })
@@ -116,5 +122,6 @@ export default function App({ target }) {
     const searchResult = new SearchResult({
         $target: this.$element,
         initialState: this.state.concertList,
+        onChangeInput,
     })
 }
