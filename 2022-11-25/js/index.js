@@ -5,27 +5,21 @@ const store = {
         localStorage.setItem("menu", JSON.stringify(menu));
     },
     getLocalStorage() {
-        localStorage.getItem("menu");
+        return JSON.parse(localStorage.getItem("menu"));
     }
 }
 
 function App() {
     this.menu = [];
-
-    const updateMenuCount = () => {
-        const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
-        $('.menu-count').innerText = `총 ${menuCount}개`;
+    this.init = () => {
+        if (store.getLocalStorage().length > 1) {
+            this.menu = store.getLocalStorage();
+            console.log(this.menu);
+        }
+        render();
     }
 
-    const addMenuName = () => {
-        if ($('#espresso-menu-name').value === '') {
-            alert('이름을 입력해 주세요.');
-            return;
-        }
-
-        const espressoMenuName = $('#espresso-menu-name').value;
-        this.menu.push({name: espressoMenuName});
-        store.setLocalStorage(this.menu);
+    const render = () => {
         const template = this.menu
             .map((item, index) => {
                 return `
@@ -49,6 +43,23 @@ function App() {
 
         $('#espresso-menu-list').innerHTML = template;
         updateMenuCount();
+    }
+
+    const updateMenuCount = () => {
+        const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
+        $('.menu-count').innerText = `총 ${menuCount}개`;
+    }
+
+    const addMenuName = () => {
+        if ($('#espresso-menu-name').value === '') {
+            alert('이름을 입력해 주세요.');
+            return;
+        }
+
+        const espressoMenuName = $('#espresso-menu-name').value;
+        this.menu.push({name: espressoMenuName});
+        store.setLocalStorage(this.menu);
+        render();
         $('#espresso-menu-name').value = '';
     }
 
@@ -96,4 +107,5 @@ function App() {
     });
 }
 
-new App();
+const app = new App();
+app.init();
