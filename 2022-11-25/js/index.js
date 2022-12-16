@@ -10,17 +10,25 @@ const store = {
 }
 
 function App() {
-    this.menu = [];
+    this.menu = {
+        espresso: [],
+        frappuccino: [],
+        blended: [],
+        teavana: [],
+        desert: [],
+    };
+
+    this.currentCategory = 'espresso';
+
     this.init = () => {
-        if (store.getLocalStorage().length > 1) {
+        if (store.getLocalStorage()) {
             this.menu = store.getLocalStorage();
-            console.log(this.menu);
         }
         render();
     }
 
     const render = () => {
-        const template = this.menu
+        const template = this.menu[this.currentCategory]
             .map((item, index) => {
                 return `
                 <li data-menu-id="${index}" class="menu-list-item d-flex items-center py-2">
@@ -57,7 +65,7 @@ function App() {
         }
 
         const espressoMenuName = $('#espresso-menu-name').value;
-        this.menu.push({name: espressoMenuName});
+        this.menu[this.currentCategory].push({name: espressoMenuName});
         store.setLocalStorage(this.menu);
         render();
         $('#espresso-menu-name').value = '';
@@ -105,6 +113,13 @@ function App() {
         }
         addMenuName();
     });
+
+    $('nav').addEventListener('click', (e) => {
+        const isCategoryButton = e.target.classList.contains('cafe-category-name');
+        if (isCategoryButton) {
+            const categoryName = e.target.dataset.categoryName;
+        }
+    })
 }
 
 const app = new App();
